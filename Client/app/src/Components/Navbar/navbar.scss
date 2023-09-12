@@ -1,0 +1,97 @@
+.navigation {
+  width: 120px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: rebeccapurple;
+  position: relative;
+  animation: slideIn 1s ease forwards;
+  transition: 0.2s ease;
+  transform: translateX(-80%);
+
+  &.close {
+    width: 20px;
+
+    .container {
+      .menu {
+        button {
+          margin: 0;
+          padding: 0;
+
+          svg {
+            &:hover {
+              fill: white;
+            }
+          }
+        }
+        ul {
+          display: none;
+        }
+      }
+    }
+  }
+
+  @keyframes slideIn {
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  .container {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+
+    .menu {
+      margin-top: 30%;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      button {
+        svg {
+          fill: rebeccapurple;
+          width: 100%;
+
+          &:hover {
+            fill: white;
+          }
+        }
+      }
+      ul {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 0.3rem 0.3rem;
+        height: 80%;
+        li {
+          border-bottom: 1px solid white;
+          font-size: 1.3rem;
+          cursor: pointer;
+          margin-top: 4rem;
+          width: 100%;
+          fill: white;
+          padding: 0 0.3rem;
+
+          &:hover {
+            border-bottom: 1px solid rebeccapurple;
+            svg {
+              fill: rebeccapurple;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+i {
+  font-size: 0.8rem;
+}

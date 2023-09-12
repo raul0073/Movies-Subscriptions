@@ -1,0 +1,101 @@
+.movie-page {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  min-height: 100dvh;
+  background-image: url("../../assets/MOVIESBG_purple2.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  margin-bottom: 10vh;
+  justify-content: center;
+
+  .movie-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10vh;
+    position: relative;
+
+    .card {
+      height: fit-content;
+      position: relative;
+
+      .art {
+        display: flex;
+        justify-content: center;
+
+        img {
+          background-color: rebeccapurple;
+          padding: 0.3rem;
+          width: 50%;
+        }
+      }
+      .genresList{
+      
+        .autocomplete-suggestions {
+        bottom:  300%;
+        padding: 8px;
+        background-color: #000000;
+        color: rgb(98, 98, 98);
+        max-height: fit-content;
+        max-width: 90%;
+        background-color: #fff;
+        overflow-x: hidden;
+        z-index: 1;
+        display: none;
+
+        .autocomplete-suggestion{
+          margin: 0 .1rem;
+        }
+          
+        &-visible{
+          display: flex;
+
+        }
+
+      }      
+
+      }
+
+
+    }
+
+    h2 {
+      text-align: center;
+      margin: 1rem 0;
+    }
+
+    input {
+      text-transform: capitalize;
+      padding: 0.3rem 1rem;
+      font-size: 1.1rem;
+      width: 80%;
+      margin: 0.8rem;
+      border-radius: 1rem;
+      outline-offset: 0.3rem;
+      outline: 1px solid;
+      outline-color: rebeccapurple;
+      background-color: transparent;
+      border: none;
+    }
+    
+    .genresList {
+      display: flex;
+      color: black;
+      font-size: 0.8rem;
+      position: relative;
+      span {
+        background-color: rgb(197, 197, 197);
+        border-radius: 1rem;
+        padding: 0.2rem;
+        text-transform: capitalize;
+        margin: 0.1rem;
+        text-align: center;
+      }
+    }
+
+
+  }
+}

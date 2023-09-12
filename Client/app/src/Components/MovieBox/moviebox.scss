@@ -1,0 +1,109 @@
+.movie-box {
+  width: 100%;
+  height: 755px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid white;
+  // border-radius: 1rem;
+  overflow: hidden;
+  .movie {
+    box-shadow: 0px 0px 5px grey;
+    width: 100%;
+    height: 100%;
+    // border-radius: 1rem;
+    .thumbnail {
+      transition: 1s ease;
+      img {
+        height: 416px;
+        width: 100%;
+        transition: 1s ease;
+      }
+      .player {
+        height: 416px;
+        width: 10px;
+      }
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-wrap: wrap;
+      color: #242424;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+
+      span.title {
+        display: inline;
+        height: 5rem;
+        margin-bottom: 2rem;
+        width: 100%;
+        h2 {
+          text-align: center;
+        }
+      }
+
+      .rating {
+        display: flex;
+        padding: 1rem;
+        width: 100%;
+        justify-content: center;
+        svg {
+          fill: gold;
+          width: 20px;
+          height: 20px;
+        }
+      }
+      .genres {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        height: 2rem;
+        span {
+          margin: 0 0.2rem;
+          color: grey;
+          font-size: 0.9rem;
+          &:nth-child(1n) {
+            &::after {
+              content: ", ";
+            }
+
+            &:last-child {
+              &::after {
+                content: "";
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .btn {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      .actions {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        button {
+          padding: 0.5rem;
+          margin: 0 1rem;
+          background-color: transparent;
+          color: rebeccapurple;
+
+          &:nth-child(2) {
+            color: red;
+          }
+        }
+      }
+    }
+  }
+}
