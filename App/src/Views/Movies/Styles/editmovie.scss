@@ -1,0 +1,60 @@
+.movie-page {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    min-height: 100dvh;
+    margin-bottom: 10vh;
+    flex-direction: column;
+    padding-top: 15vh;
+
+    .movie-container{
+        display: flex;
+        justify-content: center;
+
+        
+        .card{
+            width: 50%;
+            display: flex;
+            flex-wrap: wrap;
+
+            h3{
+                color: #1d1d1d;
+            }
+            
+            .art{   
+                
+                img{
+                    width: 150px;
+                    height: 250px;
+                }
+            }
+
+            .header{
+            
+                legend{
+                    position: relative;
+                    &::after,
+                    &::before{
+                        content: "";
+                        position: absolute;
+                        top: 50%; 
+                        transform: translateY(-50%); 
+                        display: inline-block;
+                        width: 80px;
+                        border: 1px dashed black;
+                        margin: 0 65%;
+                        height: 0.2rem;
+                    }
+
+                    &::after{
+                        right: 0;
+                    }
+                    &::before{
+                        left: 0;
+                    }
+                }
+            }
+        }
+    }
+
+}

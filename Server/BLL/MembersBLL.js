@@ -1,7 +1,7 @@
 const Member = require("../Models/MembersModel");
 const Subs = require("../Models/SubscriptionModel");
 const mongoose = require("mongoose");
-const axios = require('axios')
+const moviesBLL = require("../BLL/MovieBLL");
 
 // function will get all members, each member with subscription info
 const getAllMembersWithSubsInfo = async () => {
@@ -23,12 +23,11 @@ const getAllMembersWithSubsInfo = async () => {
 
         return { member, subscriptions: subs };
       } catch (subsErr) {
-        console.error("Error fetching subs:", subsErr);
-        return null;
+        throw new Error("Error fetching subs:", subsErr);
       }
     });
 
-    // wait for all data 
+    // wait for all data
     const memberWithSubscriptionInfo = (await Promise.all(gatherData)).filter(
       (data) => data !== null
     );
@@ -40,48 +39,51 @@ const getAllMembersWithSubsInfo = async () => {
   }
 };
 
-
 const getMemberWithSubscriptionInfo = async (id) => {
-  try{
+  try {
     // get member
-    const member = await Member.findById(id)
+    const member = await Member.findById(id);
     //if none found
-    if(!member){
-      throw new Error(`Cannot get member: ${err}`);
+    if (!member) {
+      return `Cannot get member: ${err}`;
     }
     //get subs
-    const subs = await Subs.find({ memberId: id})
+    const subs = await Subs.find({ memberId: id });
     // if none found
-    if(!subs){
-      throw new Error(`no subscription found: ${err}`);
+    if (!subs) {
+      return `no subscription found: ${err}`;
     }
     // if all good, return obj
-  
+
     const memberWithSubs = {
       member: member,
       subscriptions: subs,
     };
 
-    return memberWithSubs
-  } catch (err){
-    throw new Error(`cant get data: ${err}`)
+    return memberWithSubs;
+  } catch (err) {
+    throw new Error(`cant get data: ${err}`);
   }
-}
+};
 
 // function will delete member and his corresponding subscriptions
 const deleteMemberAndSubs = async (id) => {
-  try{
+  try {
     // get member and delte
-    await Member.findByIdAndDelete(id)
+    await Member.findByIdAndDelete(id);
     // delete all his subs
-    await Subs.deleteMany({memberId: id})
-
-    return 'Member & Subscriptions deleted successfully';
-
-  } catch (err){
-    throw new Error(`Can't delete member: ${err}`)
+    await Subs.deleteMany({ memberId: id });
+    const updatedMembersList = await getAllMembersWithSubsInfo();
+    const updatedMoviesList = await moviesBLL.getAllMoviesWithSubscribers();
+    return {
+      msg: "Member deleted successfully",
+      members: updatedMembersList,
+      movies: updatedMoviesList,
+    };
+  } catch (err) {
+    throw new Error(`Can't delete member: ${err}`);
   }
-}
+};
 
 // function to check if an email already exists in the database
 const isEmailExists = async (email) => {
@@ -89,41 +91,49 @@ const isEmailExists = async (email) => {
   return !!existingMember;
 };
 
-// function to add a new member 
+// function to add a new member
 const addMember = async (memberData) => {
   try {
     // Check if the email already exists in the database
     const emailExists = await isEmailExists(memberData.email);
-    let flag = await getCountryFlagByCode(memberData.country)
-
+    let flag = await getCountryFlagByCode(memberData.country);
     if (emailExists) {
-      throw new Error("Email already exists in the database");
+      return "Email already exists in the database";
     }
-    
 
     // if all good, save the new member
     const newMember = new Member(memberData);
-    newMember.flag = flag[0].flag
-    await newMember.save();
+    // newMember.flag = flag[0].flag
 
-    return "Member added successfully";
+    await newMember.save();
+    const savedMember = await Member.findById(newMember._id);
+
+    const memberWithSubs = {
+      member: savedMember,
+      subscriptions: [],
+    };
+    return memberWithSubs;
   } catch (err) {
     throw new Error(`Cannot add member: ${err.message}`);
   }
 };
 
+// ws for flags ** ui use **
 const getCountryFlagByCode = async (cca2) => {
   try {
     const response = await axios.get(
       `https://restcountries.com/v3.1/alpha?codes=${cca2}`
     );
-    const data = response.data
+    const data = response.data;
     return data;
   } catch (error) {
     return "Error fetching country from service:", error;
   }
 };
 
-module.exports = { getAllMembersWithSubsInfo, getMemberWithSubscriptionInfo,deleteMemberAndSubs, addMember };
-
-
+module.exports = {
+  getAllMembersWithSubsInfo,
+  getMemberWithSubscriptionInfo,
+  deleteMemberAndSubs,
+  addMember,
+};

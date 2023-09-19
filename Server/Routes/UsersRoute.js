@@ -3,7 +3,6 @@ const userBLL = require("../BLL/UserBLL");
 const express = require("express");
 const router = express.Router();
 
-
 // get all users
 router.get("/", async (req, res) => {
   try {
@@ -14,17 +13,15 @@ router.get("/", async (req, res) => {
   }
 });
 
-
 // get user by id
 router.get("/:id", async (req, res) => {
   try {
     const user = await userBLL.getUserById(req.params.id);
-    res.status(200).json({...user});
+    res.status(200).json({ ...user });
   } catch (err) {
     res.status(500).json({ error: `Can't fetch user ${err}` });
   }
 });
-
 
 // login user
 router.post("/login", async (req, res) => {
@@ -37,18 +34,14 @@ router.post("/login", async (req, res) => {
   }
 });
 
-
-
+// forgot password
 router.post("/resetPassword", async (req, res) => {
-  try{
+  try {
     await userBLL.forgotPassword(req.body.email);
     res.status(200).json(res);
-
-  }catch (err){
+  } catch (err) {
     res.status(502).json({ error: `could not send email: ${err}` });
   }
+});
 
-})
-
-
-module.exports = router
+module.exports = router;

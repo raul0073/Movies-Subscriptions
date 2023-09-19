@@ -1,8 +1,8 @@
 const Movie = require("../Models/MovieModel");
 const User = require("../Models/UsersModel");
-const Member = require("../Models/MembersModel")
-const Subs = require("../Models/SubscriptionModel")
-const mongoose = require('mongoose')
+const Member = require("../Models/MembersModel");
+const Subs = require("../Models/SubscriptionModel");
+const mongoose = require("mongoose");
 
 // function will combine movies data with subscribers name and date of subscription
 const getAllMoviesWithSubscribers = async () => {
@@ -17,7 +17,7 @@ const getAllMoviesWithSubscribers = async () => {
     const subscribersMap = {};
 
     // for each subscription
-    subs.forEach(sub => {
+    subs.forEach((sub) => {
       // add these keys to be sub
       const { movieId, memberId, date } = sub;
       // covert to str
@@ -29,16 +29,18 @@ const getAllMoviesWithSubscribers = async () => {
       }
 
       // add the obj to each member
-      const member = members.find(member => member._id.toString() === memberId.toString());
+      const member = members.find(
+        (member) => member._id.toString() === memberId.toString()
+      );
       if (member) {
         subscribersMap[strMovieId].push({ memberId, name: member.name, date });
       }
     });
 
     // combine the two
-    const moviesWithSubscribers = movies.map(movie => ({
+    const moviesWithSubscribers = movies.map((movie) => ({
       ...movie,
-      subscribers: subscribersMap[movie._id.toString()] || []
+      subscribers: subscribersMap[movie._id.toString()] || [],
     }));
 
     return moviesWithSubscribers;
@@ -50,49 +52,49 @@ const getAllMoviesWithSubscribers = async () => {
 
 // add movie, no need for description
 const addMovie = async (movie) => {
-  try{
-    console.log(movie);
-    let newMovie = new Movie(movie)
-    console.log(newMovie);
-    await newMovie.save()
-    return { mov: newMovie, msg: 'Movie add successfully'}
-  }catch (err){
+  try {
+    let newMovie = new Movie(movie);
+    await newMovie.save();
+    return { mov: newMovie, msg: "Movie add successfully" };
+  } catch (err) {
     throw new Error(`cant add movie: ${err}`);
   }
-}
+};
 
 const updatedMovie = async (id, movObj) => {
-  try{
-    let data = await Movie.findByIdAndUpdate(id, movObj)
-    return { mov: data, msg: 'Movie updated successfully'}
-  }catch(err){
-    throw new Error('Cant update movie')
+  try {
+    let data = await Movie.findByIdAndUpdate(id, movObj);
+    return { mov: data, msg: "Movie updated successfully" };
+  } catch (err) {
+    throw new Error("Cant update movie");
   }
-}
+};
 
 const deleteMovieById = async (id) => {
-  try{
-    await Movie.findByIdAndDelete(id)
-    await Subs.deleteMany({movieId: id})
-    return 'Movie & Subscription deleted successfully';
-  } catch (err){
-    throw new Error(`Can't delete movie: ${err}`)
+  try {
+    await Movie.findByIdAndDelete(id);
+    await Subs.deleteMany({ movieId: id });
+    return "Movie & Subscription deleted successfully";
+  } catch (err) {
+    throw new Error(`Can't delete movie: ${err}`);
   }
-
-}
-
+};
 
 async function getAllTimeSubscribersCountForMovie(movieId) {
   try {
-    // Find all subscriptions for the specified movie ID
     const subscribers = await Subs.countDocuments({
       movieId: movieId,
     });
-    console.log(subscribers);
     return subscribers;
   } catch (error) {
-    console.error('Error getting all-time subscribers count for movie:', error);
+    console.error("Error getting all-time subscribers count for movie:", error);
     throw error;
   }
 }
-module.exports = {getAllMoviesWithSubscribers, addMovie, updatedMovie, deleteMovieById, getAllTimeSubscribersCountForMovie}
+module.exports = {
+  getAllMoviesWithSubscribers,
+  addMovie,
+  updatedMovie,
+  deleteMovieById,
+  getAllTimeSubscribersCountForMovie,
+};

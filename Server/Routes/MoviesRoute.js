@@ -14,11 +14,11 @@ router.get("/", async (req, res) => {
   }
 });
 
-
 // get movie stats
 router.get("/:id", async (req, res) => {
   try {
-    const movieSubsThisMonth = await movieBLL.getAllTimeSubscribersCountForMovie(req.params.id);
+    const movieSubsThisMonth =
+      await movieBLL.getAllTimeSubscribersCountForMovie(req.params.id);
     res.status(200).json(movieSubsThisMonth);
   } catch (err) {
     res
@@ -31,7 +31,6 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     let newMov = req.body;
-    console.log(newMov);
     const data = await movieBLL.addMovie(newMov);
     res.status(200).json(data);
   } catch (err) {
@@ -42,11 +41,9 @@ router.post("/", async (req, res) => {
 // edit movie
 router.put("/:id", async (req, res) => {
   try {
-    let id = req.params.id
-    console.log(id);
-    let updatedMov = req.body
-    console.log(updatedMov);
-    const data = await movieBLL.updatedMovie(id,updatedMov);
+    let id = req.params.id;
+    let updatedMov = req.body;
+    const data = await movieBLL.updatedMovie(id, updatedMov);
     res.status(200).json(data);
   } catch (err) {
     res.status(500).json({ error: `Error updating movie:  ${err}` });
@@ -56,14 +53,12 @@ router.put("/:id", async (req, res) => {
 // delete movie
 router.delete("/:id", async (req, res) => {
   try {
-    let id = req.params.id
+    let id = req.params.id;
     const data = await movieBLL.deleteMovieById(id);
     res.status(200).json(data);
   } catch (err) {
     res.status(500).json({ error: `Error can't delete movie:  ${err}` });
   }
 });
-
-
 
 module.exports = router;

@@ -5,6 +5,7 @@ const subsSchema = new mongoose.Schema({
     memberId: mongoose.Types.ObjectId,
     date: Date,
     movieName: String,
+    memberName: String,
 }, {versionKey:false})
 
 const Subs = mongoose.model("subscriptions", subsSchema)

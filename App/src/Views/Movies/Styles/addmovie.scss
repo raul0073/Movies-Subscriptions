@@ -1,0 +1,51 @@
+.genresList{
+    position: relative;
+
+
+    span {
+        background-color: rgb(197, 197, 197);
+        padding: 0.2rem;
+        text-transform: capitalize;
+        margin: 0.1rem;
+        text-align: center;
+        position: relative;
+        cursor: pointer;
+        &:hover{
+            &::before{
+                content: 'Remove';
+                width: fit-content;
+                padding: .2rem;
+                background-color: rgb(115, 115, 115);
+                position: absolute;
+                margin: -2rem;
+                top: 0;
+            }
+        }
+      }
+
+    .autocomplete-suggestions {
+        padding: 8px;
+        color: rebeccapurple;
+        max-height: fit-content;
+        max-width: 90%;
+        z-index: 1;
+        display: none;
+        position: relative;
+        margin: -.5rem;
+
+        .autocomplete-suggestion{
+          margin: 0 .1rem;
+        }
+          
+        &-visible{
+          display: flex;
+
+        }
+
+      }      
+
+
+
+
+
+}

@@ -1,0 +1,26 @@
+.feed{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    
+
+    .searchAbs{
+        margin-top: -12vh;
+        position: fixed;
+        width: 60%;
+        z-index: 2;
+    }
+    .promo{
+        width: 100%;
+    }
+    .movies.grid{
+        display: grid;
+        width: 99%;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        // grid-template-columns: repeat(5, 1fr);
+        padding: 2rem;
+        gap: 1rem;
+    }
+}

@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     password: String,
     isManager: Boolean,
     isOnline: Boolean
-  });
+  }, {versionKey : false});
   
 // hash pass 
 userSchema.plugin(bcrypt);

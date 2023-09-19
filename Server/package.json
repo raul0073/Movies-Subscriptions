@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "```\r Server\r ├─ .env\r ├─ BLL\r │  ├─ MembersBLL.js\r │  ├─ MovieBLL.js\r │  ├─ SubscriptionBLL.js\r │  └─ UserBLL.js\r ├─ Configs\r │  └─ db.js\r ├─ main.js\r ├─ Models\r │  ├─ MembersModel.js\r │  ├─ MovieModel.js\r │  ├─ SubscriptionModel.js\r │  └─ UsersModel.js\r └─ Routes\r    ├─ MembersRoute.js\r    ├─ MoviesRoute.js\r    ├─ SubscriptionRoute.js\r    └─ UsersRoute.js",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "cros": "^1.0.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.5.2",
+    "mongoose-bcrypt": "^1.11.0",
+    "nodemailer": "^6.9.5",
+    "otplib": "^12.0.1"
+  }
+}
